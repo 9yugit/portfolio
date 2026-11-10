@@ -177,7 +177,7 @@
   .spec{display:grid;grid-template-columns:76px 1fr;font-size:14px;border-top:1px solid var(--ink)}
   .spec dt,.spec dd{padding:10px 0;border-bottom:1px solid var(--line)}
   .spec dt{color:var(--soft)}
-  .plan{border:1px solid var(--line);border-radius:6px;padding:12px;background:var(--bg)}
+  .plan{border:1px solid var(--line);border-radius:6px;padding:16px 12px 10px;background:var(--bg)}
   .plan svg{display:block;width:100%;height:auto}
   .plan p{font-size:12px;color:var(--soft);margin-top:6px}
   .say{border-left:2px solid var(--oak);padding-left:16px}
@@ -390,7 +390,7 @@
       <p class="cost"><span>공사비</span><b id="dlg-cost"></b><small>부가세 포함 · 예시 금액</small></p>
       <p class="story" id="dlg-story"></p>
       <dl class="spec" id="dlg-spec"></dl>
-      <div class="plan"><div id="dlg-plan"></div><p>평면도는 이해를 돕기 위한 예시입니다.</p></div>
+      <div class="plan"><div id="dlg-plan"></div><p>평형별 대표 평면 예시 · 단위 mm</p></div>
       <figure class="say"><blockquote id="dlg-rev"></blockquote><figcaption><span id="dlg-who"></span><em>예시 후기</em></figcaption></figure>
     </div>
   </div>
@@ -425,22 +425,124 @@
      spec:[["범위","철거, 창호, 난방 배관, 욕실 2곳, 주방, 가구"],["창호","시스템 창호 전체 교체"],["바닥","오크 원목마루"],["가구","거실 붙박이 벤치, 현관 수납장"]]}
   ];
 
-  // 평면도
+  // 평면도: 외벽·내벽·창·문·가구·면적·치수선을 갖춘 도면 (평형별 대표 평면, 예시)
+  const PLANS = {
+    20:{ x0:40,y0:60,x1:420,y1:300, mm:[9800,7000],
+      rooms:[
+        {n:'침실 2',x:40,y:60,w:100,h:100,f:'bed'},
+        {n:'욕실',x:140,y:60,w:70,h:70,f:'bath'},
+        {n:'현관',x:210,y:60,w:60,h:70},
+        {n:'주방 · 식당',x:270,y:60,w:150,h:110,f:'kitchen'},
+        {n:'',x:140,y:130,w:130,h:40},
+        {n:'침실 3',x:40,y:160,w:100,h:140,f:'bed'},
+        {n:'거실',x:140,y:170,w:160,h:130,f:'sofa'},
+        {n:'안방',x:300,y:170,w:120,h:130,f:'bed2'}],
+      doors:[{x:140,y:136,l:26,d:'v',s:-1},{x:150,y:130,l:26,d:'h',s:-1},{x:218,y:60,l:34,d:'h',s:1},
+             {x:140,y:176,l:26,d:'v',s:-1},{x:300,y:178,l:28,d:'v',s:1}],
+      opens:[{x:214,y:130,l:50,d:'h'},{x:146,y:170,l:150,d:'h'},{x:270,y:134,l:40,d:'v'}],
+      wins:[{x:55,y:300,l:70,d:'h'},{x:160,y:300,l:120,d:'h'},{x:315,y:300,l:90,d:'h'},{x:55,y:60,l:70,d:'h'},{x:300,y:60,l:90,d:'h'}]},
+    30:{ x0:40,y0:60,x1:480,y1:300, mm:[11400,7000],
+      rooms:[
+        {n:'침실 3',x:40,y:60,w:100,h:110,f:'bed'},
+        {n:'욕실',x:140,y:60,w:65,h:70,f:'bath'},
+        {n:'현관',x:205,y:60,w:60,h:70},
+        {n:'주방 · 식당',x:265,y:60,w:135,h:110,f:'kitchen'},
+        {n:'욕실',x:400,y:60,w:80,h:60,f:'bath'},
+        {n:'드레스룸',x:400,y:120,w:80,h:50,f:'dress'},
+        {n:'',x:140,y:130,w:125,h:40},
+        {n:'침실 2',x:40,y:170,w:100,h:130,f:'bed'},
+        {n:'거실',x:140,y:170,w:220,h:130,f:'sofa'},
+        {n:'안방',x:360,y:170,w:120,h:130,f:'bed2'}],
+      doors:[{x:140,y:136,l:28,d:'v',s:-1},{x:150,y:130,l:26,d:'h',s:-1},{x:214,y:60,l:34,d:'h',s:1},
+             {x:410,y:120,l:24,d:'h',s:-1},{x:440,y:170,l:28,d:'h',s:-1},
+             {x:140,y:180,l:28,d:'v',s:-1},{x:360,y:182,l:30,d:'v',s:1}],
+      opens:[{x:210,y:130,l:50,d:'h'},{x:146,y:170,l:208,d:'h'},{x:265,y:134,l:40,d:'v'}],
+      wins:[{x:55,y:300,l:70,d:'h'},{x:165,y:300,l:170,d:'h'},{x:378,y:300,l:84,d:'h'},{x:55,y:60,l:70,d:'h'},{x:290,y:60,l:85,d:'h'}]},
+    40:{ x0:40,y0:50,x1:500,y1:310, mm:[12600,7600],
+      rooms:[
+        {n:'서재',x:40,y:50,w:85,h:90,f:'desk'},
+        {n:'욕실',x:125,y:50,w:65,h:70,f:'bath'},
+        {n:'현관',x:190,y:50,w:65,h:70},
+        {n:'주방 · 식당',x:255,y:50,w:155,h:130,f:'kitchen'},
+        {n:'욕실',x:410,y:50,w:90,h:65,f:'bath'},
+        {n:'드레스룸',x:410,y:115,w:90,h:65,f:'dress'},
+        {n:'',x:125,y:120,w:130,h:60},
+        {n:'',x:40,y:140,w:85,h:40},
+        {n:'침실 2',x:40,y:180,w:85,h:130,f:'bed'},
+        {n:'침실 3',x:125,y:180,w:85,h:130,f:'bed'},
+        {n:'거실',x:210,y:180,w:180,h:130,f:'sofa'},
+        {n:'안방',x:390,y:180,w:110,h:130,f:'bed2'}],
+      doors:[{x:56,y:140,l:26,d:'h',s:-1},{x:135,y:120,l:26,d:'h',s:-1},{x:204,y:50,l:36,d:'h',s:1},
+             {x:420,y:115,l:24,d:'h',s:-1},{x:460,y:180,l:28,d:'h',s:-1},
+             {x:92,y:180,l:26,d:'h',s:1},{x:150,y:180,l:26,d:'h',s:1},{x:390,y:192,l:30,d:'v',s:1}],
+      opens:[{x:195,y:120,l:55,d:'h'},{x:216,y:180,l:168,d:'h'},{x:255,y:126,l:58,d:'v'},{x:125,y:146,l:34,d:'v'}],
+      wins:[{x:52,y:310,l:62,d:'h'},{x:137,y:310,l:62,d:'h'},{x:230,y:310,l:140,d:'h'},{x:405,y:310,l:80,d:'h'},{x:52,y:50,l:62,d:'h'},{x:280,y:50,l:100,d:'h'}]}
+  };
   function plan(type){
-    const W=400,H=240, s='stroke="#1D1D1B" stroke-width="2.5" fill="none"', thin='stroke="#1D1D1B" stroke-width="1.2" fill="none"';
-    const t=(x,y,txt)=>`<text x="${x}" y="${y}" text-anchor="middle" font-size="12" fill="#6B6A66" font-family="Pretendard Variable, Pretendard, sans-serif">${txt}</text>`;
-    let r=`<rect x="10" y="10" width="${W-20}" height="${H-20}" ${s}/>`;
-    if(type===20){
-      r+=`<path d="M150 10 V140 M10 140 H150 M260 140 V230 M150 140 H390" ${thin}/>`;
-      r+=t(80,80,'안방')+t(270,80,'거실 · 주방')+t(80,190,'방')+t(205,190,'욕실')+t(325,190,'현관');
-    } else if(type===30){
-      r+=`<path d="M130 10 V130 M10 130 H390 M250 10 V130 M130 130 V230 M230 130 V230 M310 130 V230" ${thin}/>`;
-      r+=t(70,75,'안방')+t(190,75,'주방')+t(320,75,'거실')+t(70,185,'방')+t(180,185,'방')+t(270,185,'욕실')+t(350,185,'욕실');
-    } else {
-      r+=`<path d="M110 10 V125 M10 125 H390 M240 10 V125 M110 125 V230 M200 125 V230 M290 125 V230 M340 125 V230" ${thin}/>`;
-      r+=t(60,72,'안방')+t(175,72,'주방 · 식당')+t(315,72,'거실')+t(60,180,'방')+t(155,180,'방')+t(245,180,'서재')+t(315,180,'욕실')+t(365,180,'욕실');
-    }
-    return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${type}평대 평면도 예시">${r}</svg>`;
+    const P = PLANS[type], INK='#1D1D1B', SOFT='#9A968E', PAPER='#FFFFFF', BG='#F3F2EF';
+    const m = P.mm[0]/(P.x1-P.x0)/1000; // 1px당 m
+    let s='';
+    const L=(x1,y1,x2,y2,c=SOFT,w=1)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="${w}"/>`;
+    const R=(x,y,w,h,f='none',c=SOFT,sw=1,extra='')=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f}" stroke="${c}" stroke-width="${sw}" ${extra}/>`;
+    // 발코니
+    s+=R(P.x0,P.y1,P.x1-P.x0,26,BG,SOFT,1,'stroke-dasharray="4 3"');
+    s+=`<text x="${(P.x0+P.x1)/2}" y="${P.y1+17}" text-anchor="middle" font-size="9" fill="${SOFT}">발코니</text>`;
+    // 방 바탕
+    P.rooms.forEach(r=>{ s+=R(r.x,r.y,r.w,r.h,PAPER,'none',0); });
+    // 가구
+    P.rooms.forEach(r=>{
+      const cx=r.x+r.w/2, cy=r.y+r.h/2;
+      if(r.f==='bed'||r.f==='bed2'){ const bw=r.f==='bed2'?44:34, bh=52, bx=r.x+10, by=r.y+10;
+        s+=R(bx,by,bw,bh,'none'); s+=L(bx,by+12,bx+bw,by+12); s+=R(bx+bw+6,by,12,12,'none'); }
+      if(r.f==='sofa'){ s+=R(r.x+12,r.y+24,20,74,'none'); s+=L(r.x+18,r.y+24,r.x+18,r.y+98); s+=R(r.x+42,r.y+46,22,32,'none'); s+=R(r.x+r.w-14,r.y+30,6,64,'none'); }
+      if(r.f==='kitchen'){ s+=R(r.x+4,r.y+4,r.w-8,16,'none'); s+=`<circle cx="${r.x+40}" cy="${r.y+12}" r="5" fill="none" stroke="${SOFT}"/>`;
+        s+=R(r.x+r.w-36,r.y+12,6,6,'none'); s+=R(r.x+r.w-26,r.y+12,6,6,'none');
+        const tx=cx-26, ty=r.y+r.h-44; s+=R(tx,ty,52,26,'none'); [tx+8,tx+30].forEach(x=>{s+=R(x,ty-9,13,7,'none');s+=R(x,ty+28,13,7,'none');}); }
+      if(r.f==='bath'){ s+=`<ellipse cx="${r.x+14}" cy="${r.y+r.h-16}" rx="7" ry="9" fill="none" stroke="${SOFT}"/>`; s+=R(r.x+7,r.y+r.h-8,14,4,'none');
+        s+=R(r.x+r.w-22,r.y+6,16,12,'none'); if(r.w>70) s+=R(r.x+4,r.y+4,26,r.h/2,'none'); }
+      if(r.f==='dress'){ s+=R(r.x+4,r.y+4,r.w-8,10,'none'); s+=R(r.x+4,r.y+r.h-14,r.w-8,10,'none'); }
+      if(r.f==='desk'){ s+=R(r.x+6,r.y+8,r.w-12,16,'none'); s+=R(cx-7,r.y+28,14,11,'none'); }
+    });
+    // 내벽
+    P.rooms.forEach(r=>{ if(r.n) s+=R(r.x,r.y,r.w,r.h,'none',INK,3); });
+    // 외벽
+    s+=R(P.x0,P.y0,P.x1-P.x0,P.y1-P.y0,'none',INK,8,'stroke-linejoin="miter"');
+    // 트인 곳(문 없는 개구부)
+    (P.opens||[]).forEach(o=>{ s+= o.d==='h' ? R(o.x,o.y-3,o.l,6,PAPER,'none',0) : R(o.x-3,o.y,6,o.l,PAPER,'none',0); });
+    // 창
+    P.wins.forEach(w=>{ if(w.d==='h'){ s+=R(w.x,w.y-4.5,w.l,9,PAPER,'none',0); s+=L(w.x,w.y-4.5,w.x+w.l,w.y-4.5,INK,1); s+=L(w.x,w.y,w.x+w.l,w.y,INK,1); s+=L(w.x,w.y+4.5,w.x+w.l,w.y+4.5,INK,1); s+=L(w.x,w.y-4.5,w.x,w.y+4.5,INK,1.5); s+=L(w.x+w.l,w.y-4.5,w.x+w.l,w.y+4.5,INK,1.5);} });
+    // 문: 개구부 + 문짝 + 열리는 호
+    P.doors.forEach(d=>{
+      const t=d.l, k=d.s;
+      if(d.d==='h'){ s+=R(d.x,d.y-4.5,t,9,PAPER,'none',0);
+        s+=L(d.x,d.y,d.x,d.y+k*t,INK,1.4);
+        s+=`<path d="M${d.x} ${d.y+k*t} A${t} ${t} 0 0 ${k>0?0:1} ${d.x+t} ${d.y}" fill="none" stroke="${SOFT}" stroke-width="0.8" stroke-dasharray="2 2"/>`;
+      } else { s+=R(d.x-4.5,d.y,9,t,PAPER,'none',0);
+        s+=L(d.x,d.y,d.x+k*t,d.y,INK,1.4);
+        s+=`<path d="M${d.x+k*t} ${d.y} A${t} ${t} 0 0 ${k>0?1:0} ${d.x} ${d.y+t}" fill="none" stroke="${SOFT}" stroke-width="0.8" stroke-dasharray="2 2"/>`; }
+    });
+    // 방 이름 + 면적
+    P.rooms.forEach(r=>{ if(!r.n) return;
+      const a=(r.w*m*r.h*m).toFixed(1), small=['욕실','현관','드레스룸'].includes(r.n);
+      let cx=r.x+r.w/2, cy=r.y+r.h/2;
+      if(r.f==='kitchen') cy=r.y+38;
+      else if(r.f==='bed'||r.f==='bed2') cy=r.y+r.h-30;
+      else if(r.f==='sofa'){ cx=r.x+r.w/2+22; cy=r.y+r.h/2+4; }
+      else if(r.f==='bath'){ cx=r.x+r.w*0.62; cy=r.y+r.h*0.66; }
+      else if(r.f==='desk') cy=r.y+r.h-20;
+      s+=`<text x="${cx}" y="${cy}" text-anchor="middle" font-size="${small?10:11}" font-weight="500" fill="${INK}">${r.n}</text>`;
+      if(!small) s+=`<text x="${cx}" y="${cy+13}" text-anchor="middle" font-size="9" fill="${SOFT}">${a}㎡</text>`; });
+    // 치수선
+    const dy=P.y0-26, dx=P.x0-24;
+    s+=L(P.x0,dy,P.x1,dy,INK,0.8)+L(P.x0,dy-5,P.x0,dy+5,INK,0.8)+L(P.x1,dy-5,P.x1,dy+5,INK,0.8);
+    s+=`<rect x="${(P.x0+P.x1)/2-24}" y="${dy-7}" width="48" height="14" fill="${BG}"/><text x="${(P.x0+P.x1)/2}" y="${dy+3.5}" text-anchor="middle" font-size="10" fill="${INK}">${P.mm[0].toLocaleString()}</text>`;
+    s+=L(dx,P.y0,dx,P.y1,INK,0.8)+L(dx-5,P.y0,dx+5,P.y0,INK,0.8)+L(dx-5,P.y1,dx+5,P.y1,INK,0.8);
+    s+=`<g transform="translate(${dx} ${(P.y0+P.y1)/2}) rotate(-90)"><rect x="-22" y="-7" width="44" height="14" fill="${BG}"/><text y="3.5" text-anchor="middle" font-size="10" fill="${INK}">${P.mm[1].toLocaleString()}</text></g>`;
+    // 방위
+    const nx=P.x1+22, ny=P.y0+10;
+    s+=`<path d="M${nx} ${ny-12} L${nx+6} ${ny+6} L${nx} ${ny+2} L${nx-6} ${ny+6} Z" fill="${INK}"/><text x="${nx}" y="${ny+20}" text-anchor="middle" font-size="9" fill="${INK}">N</text>`;
+    const W=P.x1+44, H=P.y1+40;
+    return `<svg viewBox="0 0 ${W} ${H}" font-family="Pretendard Variable, Pretendard, sans-serif" role="img" aria-label="${type}평대 평면도 예시">${s}</svg>`;
   }
 
   // 시공 사례 목록
