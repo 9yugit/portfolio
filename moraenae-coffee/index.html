@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>모래내 커피 로스터스 — 시안</title>
+<meta name="description" content="2021년 모래내시장에서 시작한 로스터리 카페 브랜드 (포트폴리오용 가상 시안)">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* 한 화면에 한 섹션. 휠을 내리면 다음 화면으로 딱 맞춰 넘어간다 */
+  :root{
+    --paper:#ECEFE8;
+    --paper-2:#E1E6DC;
+    --ink:#1F2A24;
+    --ink-soft:#56625B;
+    --moss:#3E5B47;
+    --butter:#E8C547;
+    --line:#C9D0C4;
+    --bean:#6B3E1F;
+    --display:"Hahmlet", serif;
+    --body:"IBM Plex Sans KR", system-ui, sans-serif;
+    --top:112px; /* 시안 배너 + 헤더 높이 */
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:var(--top)}
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;word-break:keep-all}
+  img{display:block;width:100%;height:100%;object-fit:cover;background:var(--paper-2);color:transparent}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--moss);outline-offset:4px}
+  .wrap{width:100%;max-width:1180px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+
+  .notice{position:sticky;top:0;z-index:50;height:37px;display:grid;place-items:center;background:var(--ink);color:var(--paper);font-size:13px;padding-inline:16px;text-align:center}
+  .notice strong{color:var(--butter);font-weight:500}
+
+  header{position:sticky;top:37px;z-index:40;height:75px;background:var(--paper);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:24px;height:100%}
+  .logo{font-family:var(--display);font-weight:600;font-size:20px;text-decoration:none;white-space:nowrap}
+  .logo small{font-family:var(--body);font-weight:400;font-size:12px;color:var(--ink-soft);margin-left:8px}
+  .nav ul{display:flex;gap:40px;list-style:none;font-size:15px}
+  .nav ul a{text-decoration:none;color:var(--ink-soft);white-space:nowrap;padding-block:6px;border-bottom:1px solid transparent}
+  .nav ul a:hover{color:var(--ink)}
+  .nav ul a[aria-current="true"]{color:var(--ink);border-color:var(--ink)}
+
+  /* 한 화면 섹션 */
+  .screen{min-height:calc(100vh - var(--top));display:flex;align-items:center;padding-block:48px}
+  .title{font-family:var(--display);font-weight:500;font-size:clamp(30px,3.2vw,42px);line-height:1.3;letter-spacing:-.02em;margin-bottom:20px}
+  .sub{color:var(--ink-soft);max-width:40ch}
+
+  /* 히어로 */
+  .hero{padding-block:32px}
+  .hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:72px;align-items:center}
+  .hero-photo{height:calc(100vh - var(--top) - 64px);max-height:860px;border-radius:4px 160px 4px 4px;overflow:hidden}
+  .since{font-family:var(--display);font-size:15px;color:var(--moss);margin-bottom:18px;display:flex;align-items:center;gap:12px}
+  .since::after{content:"";width:40px;height:1px;background:var(--moss)}
+  .hero h1{font-family:var(--display);font-weight:500;font-size:clamp(34px,3.6vw,50px);line-height:1.25;letter-spacing:-.02em;margin-bottom:20px}
+  .hero .lead{font-size:17px;color:var(--ink-soft);max-width:30ch}
+  .goes{display:flex;flex-wrap:wrap;gap:56px;margin-top:64px}
+
+  /* 글씨형 링크 */
+  .go{display:grid;justify-items:start;gap:18px;text-decoration:none;color:var(--ink)}
+  .go .icon{width:64px;height:48px}
+  .go .row{display:flex;align-items:center;gap:22px}
+  .go .label{font-size:clamp(24px,2.3vw,32px);font-weight:700;letter-spacing:-.02em;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:9px}
+  .go .arrow{width:46px;height:14px;flex:none;transition:transform .25s ease}
+  .go:hover .arrow,.go:focus-visible .arrow{transform:translateX(8px)}
+  .go.light{color:var(--paper)}
+
+  /* 소개 */
+  .about{background:var(--moss);color:var(--paper)}
+  .about .sub{color:#CBD6CC}
+  .about-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:center}
+  .about-text p + p{margin-top:16px}
+  .about-text .first{font-family:var(--display);font-size:clamp(19px,1.7vw,23px);line-height:1.6;color:var(--paper);margin-top:32px}
+  .about-text .rest{font-size:15px;color:#DDE5DE;max-width:44ch}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+  .pair figure{height:min(56vh,520px);border-radius:4px;overflow:hidden}
+  .pair figure:last-child{margin-top:12vh}
+
+  /* 제품이야기 */
+  .prod-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:80px;align-items:center}
+  .prod-photo{height:min(66vh,620px);border-radius:4px;overflow:hidden}
+  .beans{list-style:none;border-top:2px solid var(--ink);margin-top:36px}
+  .beans li{display:grid;grid-template-columns:1fr auto;gap:2px 24px;padding:20px 0;border-bottom:1px solid var(--line)}
+  .beans h3{font-family:var(--display);font-weight:500;font-size:21px;line-height:1.4}
+  .beans .price{font-family:var(--display);font-size:18px;font-variant-numeric:tabular-nums;text-align:right}
+  .beans .price small{display:block;font-family:var(--body);font-size:12px;color:var(--ink-soft)}
+  .beans p{grid-column:1/-1;font-size:15px;color:var(--ink-soft)}
+
+  /* 가맹점 */
+  .franchise{background:var(--ink);color:var(--paper)}
+  .franchise .sub{color:#B8C2BB}
+  .fr-grid{display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center}
+  .rules{list-style:none;margin-top:40px;display:grid;gap:18px;max-width:44ch}
+  .rules li{padding-left:22px;position:relative;color:#DDE5DE;font-size:15px}
+  .rules li::before{content:"";position:absolute;left:0;top:12px;width:10px;height:2px;background:var(--butter)}
+  .stores h3{font-family:var(--display);font-weight:500;font-size:20px;margin-bottom:16px}
+  .stores ul{list-style:none;border-top:1px solid #4A5A50}
+  .stores li{display:grid;grid-template-columns:110px 1fr auto;gap:16px;align-items:baseline;padding:15px 0;border-bottom:1px solid #34423A;font-size:15px}
+  .stores b{font-weight:500}
+  .stores span{color:#B8C2BB}
+  .stores em{font-style:normal;font-size:12px;color:var(--butter)}
+
+  /* 새소식 & 공지 */
+  .news-screen{flex-direction:column;align-items:stretch;justify-content:space-between;padding-bottom:0}
+  .news-screen > .wrap:first-child{margin-block:auto}
+  .news{border-top:2px solid var(--ink);margin-top:36px}
+  .news details{border-bottom:1px solid var(--line)}
+  .news summary{display:grid;grid-template-columns:56px 1fr auto;gap:20px;align-items:center;padding:18px 4px;cursor:pointer;list-style:none}
+  .news summary::-webkit-details-marker{display:none}
+  .news .cat{font-size:13px;color:var(--moss);font-weight:500}
+  .news .t{font-size:16px;font-weight:500}
+  .news time{font-size:14px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+  .news details[open] .t{text-decoration:underline;text-underline-offset:5px}
+  .news .body{padding:0 4px 22px 80px;color:var(--ink-soft);font-size:15px;max-width:72ch}
+
+  footer{margin-top:48px;border-top:1px solid var(--line);padding-block:24px 32px;font-size:13px;color:var(--ink-soft)}
+  .foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.go .arrow{transition:none}}
+
+  /* 태블릿·휴대폰: 화면 고정 스크롤을 끄고 일반 스크롤 */
+  @media (max-width:900px){
+    :root{--top:122px}
+    header{height:85px}
+    .nav{flex-direction:column;align-items:flex-start;justify-content:center;gap:6px}
+    .nav ul{gap:22px;overflow-x:auto;width:100%;font-size:14px}
+    .screen{min-height:0;padding-block:72px}
+    .hero{padding-block:24px 64px}
+    .hero-grid,.about-grid,.prod-grid,.fr-grid{grid-template-columns:1fr;gap:40px}
+    .hero-photo{height:auto;aspect-ratio:4/3;border-radius:4px 96px 4px 4px}
+    .goes{margin-top:44px;gap:40px}
+    .pair figure{height:auto;aspect-ratio:3/4}
+    .pair figure:last-child{margin-top:48px}
+    .prod-photo{height:auto;aspect-ratio:16/10}
+    .news-screen{padding-bottom:0}
+  }
+  @media (max-width:560px){
+    .wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+    .notice{font-size:11.5px}
+    .stores li{grid-template-columns:1fr auto}
+    .stores span{grid-column:1/-1;order:3}
+    .news summary{grid-template-columns:48px 1fr;gap:4px 12px}
+    .news time{grid-column:2}
+    .news .body{padding-left:4px}
+  }
+</style>
+</head>
+<body>
+
+<div class="notice" role="note"><span><strong>포트폴리오용 시안</strong>입니다. 모래내 커피는 실존하지 않는 가상의 브랜드이며, 매장 정보와 공지는 모두 예시입니다.</span></div>
+
+<header>
+  <nav class="wrap nav" aria-label="주요 메뉴">
+    <a class="logo" href="#top">모래내 커피<small>Roasters</small></a>
+    <ul>
+      <li><a href="#about">모래내 커피 소개</a></li>
+      <li><a href="#products">제품이야기</a></li>
+      <li><a href="#franchise">가맹점 문의</a></li>
+      <li><a href="#news">새소식 &amp; 공지</a></li>
+    </ul>
+  </nav>
+</header>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="arrow" viewBox="0 0 46 14"><path d="M0 7 H44 M36 1 L44 7 L36 13" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+  </defs>
+</svg>
+
+<main id="top">
+  <section class="screen hero" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div class="hero-photo">
+        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1400&q=75" alt="모래내 커피 본점 내부, 바 앞에 놓인 의자와 큰 화분">
+      </div>
+      <div>
+        <p class="since">Since 2021</p>
+        <h1 id="hero-title">모래내 커피 로스터스</h1>
+        <p class="lead">모래내시장 골목의 쌀집을 고쳐 시작한 로스터리 카페입니다.</p>
+        <div class="goes">
+          <a class="go" href="#about">
+            <svg class="icon" viewBox="0 0 64 48" aria-hidden="true">
+              <g transform="translate(15 13) rotate(38)"><ellipse rx="12" ry="7.5" fill="var(--bean)"/><path d="M-10 1 C-4 -3 4 3 10 -1" stroke="var(--ink)" stroke-width="1.6" fill="none"/></g>
+              <g transform="translate(42 16) rotate(-20)"><ellipse rx="11" ry="7" fill="var(--bean)"/><path d="M-9 1 C-3 -3 3 3 9 -1" stroke="var(--ink)" stroke-width="1.6" fill="none"/></g>
+              <g transform="translate(28 37) rotate(-28)"><ellipse rx="10" ry="6.5" fill="var(--bean)"/><path d="M-8 1 C-3 -2 3 2 8 -1" stroke="var(--ink)" stroke-width="1.5" fill="none"/></g>
+            </svg>
+            <span class="row"><span class="label">브랜드 소개</span><svg class="arrow" aria-hidden="true"><use href="#arrow"/></svg></span>
+          </a>
+          <a class="go" href="#franchise">
+            <svg class="icon" viewBox="0 0 64 48" aria-hidden="true">
+              <path d="M10 20 H54 V44 H10 Z" fill="none" stroke="var(--ink)" stroke-width="2"/>
+              <path d="M6 20 L12 6 H52 L58 20" fill="var(--butter)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M17 20 L20 6 M28 20 L29 6 M36 20 L35 6 M47 20 L44 6" stroke="var(--ink)" stroke-width="1.5"/>
+              <rect x="26" y="28" width="12" height="16" fill="var(--bean)"/>
+            </svg>
+            <span class="row"><span class="label">가맹점 문의</span><svg class="arrow" aria-hidden="true"><use href="#arrow"/></svg></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen about" id="about" aria-labelledby="about-title">
+    <div class="wrap about-grid">
+      <div class="about-text">
+        <h2 class="title" id="about-title">모래내 커피 소개</h2>
+        <p class="sub">40년 된 쌀집의 나무 선반과 됫박을 그대로 두고, 그 자리에 로스터기를 들였습니다.</p>
+        <p class="first">그날 볶은 원두를 그날 씁니다.<br>매장이 늘어난 지금도 그대로입니다.</p>
+        <p class="rest">원두는 매일 아침 가좌동 로스팅랩에서 볶아 각 매장에 당일 보냅니다. 바리스타는 모두 본점에서 교육을 마친 뒤 매장에 섭니다. 어느 매장에서 드셔도 같은 잔이 나오도록요.</p>
+      </div>
+      <div class="pair">
+        <figure><img src="https://images.unsplash.com/photo-1766767164066-d2f4571e75d1?auto=format&fit=crop&w=900&q=75" alt="바 뒤에서 커피를 내리는 바리스타" loading="lazy"></figure>
+        <figure><img src="https://images.unsplash.com/photo-1663976671572-e920e5b3aa2c?auto=format&fit=crop&w=900&q=75" alt="유리 진열장과 창가가 보이는 카운터" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="products" aria-labelledby="products-title">
+    <div class="wrap prod-grid">
+      <div class="prod-photo"><img src="https://images.unsplash.com/photo-1767065584025-b1c5ecfbffbb?auto=format&fit=crop&w=1100&q=75" alt="나무 테이블 위 라테와 피칸 타르트" loading="lazy"></div>
+      <div>
+        <h2 class="title" id="products-title">제품이야기</h2>
+        <p class="sub">매장에서 내리는 원두 세 가지입니다. 매장과 온라인에서 200g부터 구매하실 수 있어요.</p>
+        <ul class="beans">
+          <li><h3>골목 블렌드</h3><span class="price">16,000<small>200g</small></span><p>구운 견과와 다크초콜릿. 매장 라테에 쓰는 하우스 블렌드입니다.</p></li>
+          <li><h3>에티오피아 구지 함벨라</h3><span class="price">21,000<small>200g</small></span><p>자스민, 복숭아, 꿀. 식을수록 단맛이 올라옵니다.</p></li>
+          <li><h3>콜롬비아 디카페인</h3><span class="price">18,000<small>200g</small></span><p>밀크초콜릿과 흑설탕. 저녁에도 편하게 드실 수 있습니다.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen franchise" id="franchise" aria-labelledby="fr-title">
+    <div class="wrap fr-grid">
+      <div>
+        <h2 class="title" id="fr-title">가맹점 문의</h2>
+        <p class="sub">매장을 빠르게 늘리지 않습니다. 그날 볶은 원두가 그날 닿을 수 있는 곳에만 엽니다.</p>
+        <ul class="rules">
+          <li>원두를 당일 배송할 수 있는 서울 서북권에서만 매장을 엽니다.</li>
+          <li>새 매장은 한 해에 두 곳까지만 엽니다.</li>
+          <li>점주와 바리스타 모두 본점에서 교육을 마친 뒤 문을 엽니다.</li>
+        </ul>
+      </div>
+      <div class="stores">
+        <h3>지금 문을 연 매장</h3>
+        <ul>
+          <li><b>본점</b><span>서대문구 모래내로 00길 00</span><em>직영</em></li>
+          <li><b>가좌 로스팅랩</b><span>서대문구 가재울로 00</span><em>직영</em></li>
+          <li><b>연희점</b><span>서대문구 연희로 00</span><em>가맹</em></li>
+          <li><b>망원점</b><span>마포구 망원로 00</span><em>가맹</em></li>
+          <li><b>응암점</b><span>은평구 응암로 00</span><em>가맹</em></li>
+          <li><b>홍제점</b><span>서대문구 통일로 00</span><em>가맹</em></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen news-screen" id="news" aria-labelledby="news-title">
+    <div class="wrap">
+      <h2 class="title" id="news-title">새소식 &amp; 공지</h2>
+      <div class="news">
+        <details><summary><span class="cat">공지</span><span class="t">본점 11월 24일–25일 내부 공사로 휴무합니다</span><time datetime="2026-11-08">2026.11.08</time></summary>
+          <p class="body">로스터기 점검과 바 공사로 본점이 이틀간 쉽니다. 다른 매장은 정상 영업합니다.</p></details>
+        <details><summary><span class="cat">소식</span><span class="t">겨울 원두, 케냐 키리냐가 AA가 들어왔습니다</span><time datetime="2026-11-03">2026.11.03</time></summary>
+          <p class="body">자몽과 블랙커런트, 묵직한 단맛이 있는 원두입니다. 11월 10일부터 전 매장에서 필터커피로 내립니다.</p></details>
+        <details><summary><span class="cat">소식</span><span class="t">여섯 번째 매장, 망원점이 문을 열었습니다</span><time datetime="2026-08-14">2026.08.14</time></summary>
+          <p class="body">망원시장 입구의 작은 매장입니다. 테이크아웃 위주로 운영하고 원두 소분 판매도 합니다.</p></details>
+        <details><summary><span class="cat">공지</span><span class="t">원두 정기배송 가격 조정 안내</span><time datetime="2026-07-30">2026.07.30</time></summary>
+          <p class="body">생두 가격 인상으로 9월 1일부터 정기배송 가격을 200g당 1,000원 올립니다.</p></details>
+      </div>
+    </div>
+    <footer>
+      <div class="wrap foot">
+        <p>모래내 커피 로스터스 · 서울시 서대문구 가재울로 00 (예시 주소) · 포트폴리오용 가상 시안</p>
+        <p>사진: Unsplash</p>
+      </div>
+    </footer>
+  </section>
+</main>
+
+<script>
+  // 지금 보고 있는 섹션을 상단 메뉴에 표시
+  const links = [...document.querySelectorAll('.nav ul a')];
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      links.forEach(a=>a.setAttribute('aria-current', a.getAttribute('href')==='#'+e.target.id));
+    });
+  },{rootMargin:'-45% 0px -45% 0px'});
+  document.querySelectorAll('main section').forEach(s=>io.observe(s));
+
+  // 데스크톱: 휠 한 번 = 한 화면
+  const secs = [...document.querySelectorAll('main section')];
+  const desk = matchMedia('(min-width:901px)');
+  const calm = matchMedia('(prefers-reduced-motion: reduce)');
+  const topOf = s => s.offsetTop - document.querySelector('main').offsetTop;
+  const current = () => secs.reduce((best,s,i)=>Math.abs(topOf(s)-scrollY) < Math.abs(topOf(secs[best])-scrollY) ? i : best, 0);
+  function go(i){
+    i = Math.max(0, Math.min(secs.length-1, i));
+    window.scrollTo({top: topOf(secs[i]), behavior: calm.matches ? 'auto' : 'smooth'});
+  }
+  let lock=false, lockStart=0, lastWheel=0;
+  window.addEventListener('wheel', e=>{
+    if(!desk.matches || e.ctrlKey) return;
+    e.preventDefault();
+    const now = Date.now(), gap = now - lastWheel; lastWheel = now;
+    if(lock && now - lockStart > 800 && gap > 150) lock = false;
+    if(lock || Math.abs(e.deltaY) < 4) return;
+    lock = true; lockStart = now;
+    go(current() + (e.deltaY > 0 ? 1 : -1));
+  }, {passive:false});
+  window.addEventListener('keydown', e=>{
+    if(!desk.matches || /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) return;
+    const next = ['ArrowDown','PageDown',' '].includes(e.key), prev = ['ArrowUp','PageUp'].includes(e.key);
+    if(!next && !prev) return;
+    e.preventDefault(); go(current() + (next ? 1 : -1));
+  });
+  // 메뉴 링크도 같은 위치로
+  document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+    const t = a.getAttribute('href')==='#top' ? secs[0] : document.querySelector(a.getAttribute('href'));
+    if(!t || !desk.matches) return;
+    e.preventDefault(); go(secs.indexOf(t));
+  }));
+</script>
+</body>
+</html>
