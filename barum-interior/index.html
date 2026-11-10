@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>바름 인테리어 — 시안</title>
+<meta name="description" content="서울 서북권 아파트 리모델링 업체 (포트폴리오용 가상 시안)">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  /* 도면 한 장: 콘크리트 바탕, 흑연색 글씨, 치수선. 제목은 가는 명조, 정보는 고딕. 한 화면에 한 섹션 */
+  :root{
+    --bg:#F3F2EF;
+    --sheet:#FFFFFF;
+    --ink:#1D1D1B;
+    --soft:#6B6A66;
+    --line:#D6D4CE;
+    --oak:#8C6A4A;
+    --serif:"Noto Serif KR", "Apple Myungjo", "Batang", serif;
+    --sans:"Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    --r:8px;
+    --top:109px; /* 시안 배너 37 + 헤더 72 */
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:var(--top)}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.7;letter-spacing:-.01em;-webkit-font-smoothing:antialiased;word-break:keep-all}
+  img{display:block;width:100%;height:100%;object-fit:cover;background:#E4E2DD;color:transparent}
+  a{color:inherit}
+  button{font:inherit;color:inherit}
+  :focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+  .wrap{width:100%;max-width:1240px;margin:0 auto;padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}
+  .serif{font-family:var(--serif);font-weight:300;letter-spacing:-.04em}
+
+  .notice{position:sticky;top:0;z-index:60;height:37px;display:grid;place-items:center;background:var(--ink);color:var(--bg);font-size:13px;padding-inline:16px;text-align:center}
+  .notice b{font-weight:600}
+
+  header{position:sticky;top:37px;z-index:50;height:72px;background:var(--bg)}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:24px;height:100%;border-bottom:1px solid var(--line)}
+  .logo{text-decoration:none;display:flex;align-items:baseline;gap:12px;white-space:nowrap}
+  .logo strong{font-family:var(--serif);font-size:24px;font-weight:500;letter-spacing:-.03em}
+  .logo span{font-size:13px;color:var(--soft)}
+  .nav ul{display:flex;gap:36px;list-style:none;font-size:15px}
+  .nav ul a{text-decoration:none;color:var(--soft);padding-block:4px;border-bottom:1px solid transparent}
+  .nav ul a:hover{color:var(--ink)}
+  .nav ul a[aria-current="true"]{color:var(--ink);border-color:var(--ink)}
+
+  .frame{position:fixed;top:0;bottom:0;width:1px;background:var(--line);z-index:30;pointer-events:none}
+  .frame.l{left:calc(50% - 620px)} .frame.r{right:calc(50% - 620px)}
+
+  /* 치수선 */
+  .dim{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--soft);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .dim::before,.dim::after{content:"";flex:1;height:9px;background:linear-gradient(var(--line),var(--line)) center/100% 1px no-repeat}
+  .dim::before{border-left:1px solid var(--soft)}
+  .dim::after{border-right:1px solid var(--soft)}
+
+  /* 한 화면 섹션 */
+  .screen{min-height:calc(100vh - var(--top));display:flex;align-items:center;padding-block:40px}
+  .h2{font-family:var(--serif);font-weight:300;font-size:clamp(32px,3.2vw,46px);line-height:1.25;letter-spacing:-.04em}
+  .sub{color:var(--soft);max-width:40ch;margin-top:12px;font-size:15px}
+
+  /* 글씨형 링크 */
+  .go{display:inline-flex;align-items:center;gap:14px;text-decoration:none;font-size:17px;font-weight:500}
+  .go span{border-bottom:1px solid var(--ink);padding-bottom:3px}
+  .go svg{width:38px;height:10px;transition:transform .25s}
+  .go:hover svg,.go:focus-visible svg{transform:translateX(6px)}
+
+  /* 첫 화면: 왼쪽 문장, 오른쪽 사진 */
+  .hero{padding-block:28px}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:64px;align-items:stretch;width:100%}
+  .hero-copy{display:flex;flex-direction:column;justify-content:space-between;padding-block:24px 8px}
+  .hero-copy .kind{font-size:13px;color:var(--soft);display:flex;gap:14px;align-items:center}
+  .hero-copy .kind::after{content:"";width:48px;height:1px;background:var(--soft)}
+  .hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(40px,4.6vw,68px);line-height:1.22;letter-spacing:-.05em;margin-block:auto 28px;padding-top:40px}
+  .hero-copy p{color:var(--soft);max-width:30ch;font-size:15px}
+  .goes{display:flex;flex-wrap:wrap;gap:10px 32px;margin-top:32px}
+  .hero-photo{position:relative;border-radius:var(--r);overflow:hidden;height:calc(100vh - var(--top) - 56px);min-height:460px;max-height:860px}
+  .hero-cap{position:absolute;left:20px;bottom:20px;display:grid;gap:2px;text-align:left;background:rgba(255,255,255,.95);border:none;border-radius:6px;padding:12px 16px;cursor:pointer}
+  .hero-cap span{font-size:12px;color:var(--soft)}
+  .hero-cap b{font-size:14px;font-weight:500;text-decoration:underline;text-underline-offset:4px}
+
+  /* 시공 사례: 가로로 넘기는 한 줄 */
+  .works-screen .wrap{display:grid;gap:32px}
+  .works-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+  .works-tools{display:flex;align-items:center;gap:36px;flex-wrap:wrap}
+  .filters{display:flex;gap:22px}
+  .filters button{background:none;border:none;border-bottom:1px solid transparent;padding:4px 0;font-size:15px;color:var(--soft);cursor:pointer}
+  .filters button:hover{color:var(--ink)}
+  .filters button[aria-pressed="true"]{color:var(--ink);border-color:var(--ink)}
+  .arrows{display:flex;gap:8px}
+  .arrows button{width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:none;cursor:pointer;display:grid;place-items:center}
+  .arrows button:hover{border-color:var(--ink)}
+  .arrows svg{width:16px;height:10px}
+  .works{display:grid;grid-auto-flow:column;grid-auto-columns:max-content;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding-bottom:12px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+  .work{display:grid;gap:12px;align-content:start;text-align:left;background:none;border:none;cursor:pointer;padding:0;scroll-snap-align:start}
+  .work .ph{display:block;height:min(48vh,480px);min-height:300px;aspect-ratio:4/5;border-radius:var(--r);overflow:hidden}
+  .work .ph img{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .work:hover .ph img{transform:scale(1.03)}
+  .work h3{font-family:var(--serif);font-size:19px;font-weight:400;letter-spacing:-.03em;line-height:1.4}
+  .work .meta{font-size:13px;color:var(--soft);margin-top:-8px}
+  .empty{color:var(--soft);padding:48px 0}
+
+  /* 진행 과정 */
+  .process{background:var(--sheet)}
+  .process .wrap{display:grid;gap:56px}
+  .steps{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));counter-reset:s;border-top:1px solid var(--ink)}
+  .steps li{counter-increment:s;padding:28px 24px 0 0;display:grid;gap:8px;align-content:start;position:relative}
+  .steps li::before{content:counter(s,decimal-leading-zero);font-size:12px;color:var(--oak);font-weight:600;font-variant-numeric:tabular-nums}
+  .steps li::after{content:"";position:absolute;top:-5px;left:0;width:9px;height:9px;border-radius:50%;background:var(--sheet);border:1px solid var(--ink)}
+  .steps h3{font-family:var(--serif);font-size:21px;font-weight:400;letter-spacing:-.03em}
+  .steps p{font-size:14px;color:var(--soft)}
+  .steps .take{font-size:13px;font-weight:500;font-variant-numeric:tabular-nums;margin-top:4px}
+  .total{max-width:420px}
+
+  /* 회사 소개 */
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+  .about-photo{height:calc(100vh - var(--top) - 96px);max-height:720px;min-height:420px;border-radius:var(--r);overflow:hidden}
+  .promise{list-style:none;margin-top:32px;border-top:1px solid var(--ink)}
+  .promise li{display:grid;grid-template-columns:132px 1fr;gap:20px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .promise b{font-weight:600;font-size:15px}
+  .promise span{color:var(--soft);font-size:14px}
+  .ceo{margin-top:24px;font-size:13px;color:var(--soft);display:flex;align-items:baseline;gap:10px}
+  .ceo b{font-family:var(--serif);color:var(--ink);font-weight:400;font-size:20px}
+
+  /* 질문 + 쇼룸 */
+  .visit{display:grid;grid-template-columns:1.15fr 1fr;gap:80px;align-items:start}
+  .faq{margin-top:28px;border-top:1px solid var(--ink)}
+  .faq details{border-bottom:1px solid var(--line)}
+  .faq summary{list-style:none;cursor:pointer;padding:17px 32px 17px 0;font-size:16px;font-weight:500;position:relative}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"";position:absolute;right:4px;top:50%;width:12px;height:12px;background:linear-gradient(var(--ink),var(--ink)) center/12px 1px no-repeat,linear-gradient(var(--ink),var(--ink)) center/1px 12px no-repeat;transform:translateY(-50%);transition:transform .2s}
+  .faq details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+  .faq p{padding:0 0 18px;color:var(--soft);font-size:14px;max-width:56ch}
+  .info{display:grid;grid-template-columns:64px 1fr;margin-top:28px;border-top:1px solid var(--ink);font-size:15px}
+  .info dt,.info dd{padding:15px 0;border-bottom:1px solid var(--line)}
+  .info dt{font-size:12px;color:var(--soft);padding-top:18px}
+  .info dd span{display:block;font-size:13px;color:var(--soft)}
+  .info .tel{font-size:21px;font-weight:500;font-variant-numeric:tabular-nums;user-select:all}
+
+  /* 하단 */
+  .site-foot{background:#ECEAE6;border-top:1px solid var(--line)}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1.1fr;min-height:400px}
+  .foot-grid > *{padding:44px 32px 40px}
+  .foot-grid > * + *{border-left:1px solid var(--line)}
+  .foot-brand{padding-left:0 !important;display:flex;flex-direction:column;justify-content:space-between;gap:48px}
+  .tagline{display:grid;gap:2px;font-size:clamp(17px,1.5vw,20px);line-height:1.55}
+  .tagline span:last-child{color:var(--soft)}
+  .foot-brand strong{font-family:var(--serif);font-size:clamp(72px,10vw,150px);font-weight:400;letter-spacing:-.02em;line-height:.8;color:var(--oak)}
+  .foot-links{display:grid;align-content:start;gap:12px}
+  .foot-links a{text-decoration:none;font-size:15px;color:var(--oak);width:max-content}
+  .foot-links a:hover{text-decoration:underline;text-underline-offset:4px}
+  .foot-info{display:grid;align-content:start;font-size:14px}
+  .foot-info dt{font-size:12px;color:var(--soft);margin-top:16px}
+  .foot-info dt:first-child{margin-top:0}
+  .foot-info .tel{font-size:22px;font-weight:500;font-variant-numeric:tabular-nums;user-select:all}
+  .foot-legal{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-block:18px 26px;font-size:12px;color:var(--soft)}
+
+  /* 사례 자세히 보기 */
+  dialog{max-width:none;border:none;padding:0;background:var(--sheet);color:var(--ink);width:min(1080px,calc(100% - 48px));max-height:calc(100% - 48px);margin:auto;border-radius:var(--r);overflow:auto}
+  dialog::backdrop{background:rgba(29,29,27,.55)}
+  .dlg{display:grid;grid-template-columns:1.25fr 1fr}
+  .dlg-photos{display:grid;gap:8px;padding:8px;align-content:start}
+  .dlg-main{aspect-ratio:4/3;border-radius:6px;overflow:hidden}
+  .dlg-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .dlg-thumbs button{aspect-ratio:1;border-radius:6px;overflow:hidden;border:2px solid transparent;padding:0;cursor:pointer;background:none}
+  .dlg-thumbs button[aria-pressed="true"]{border-color:var(--ink)}
+  .dlg-body{padding:36px 36px 32px;display:grid;gap:20px;align-content:start}
+  .dlg-body h3{font-family:var(--serif);font-size:26px;font-weight:300;letter-spacing:-.04em;line-height:1.35}
+  .cost{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .cost span{font-size:12px;color:var(--soft)}
+  .cost b{font-size:24px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .cost small{font-size:12px;color:var(--soft)}
+  .story{color:var(--soft);font-size:15px}
+  .spec{display:grid;grid-template-columns:76px 1fr;font-size:14px;border-top:1px solid var(--ink)}
+  .spec dt,.spec dd{padding:10px 0;border-bottom:1px solid var(--line)}
+  .spec dt{color:var(--soft)}
+  .plan{border:1px solid var(--line);border-radius:6px;padding:12px;background:var(--bg)}
+  .plan svg{display:block;width:100%;height:auto}
+  .plan p{font-size:12px;color:var(--soft);margin-top:6px}
+  .say{border-left:2px solid var(--oak);padding-left:16px}
+  .say blockquote{font-family:var(--serif);font-size:16px;font-weight:300;line-height:1.8}
+  .say figcaption{margin-top:8px;font-size:12px;color:var(--soft);display:flex;gap:10px;align-items:center}
+  .say em{font-style:normal;font-size:11px;border:1px solid var(--line);border-radius:4px;padding:0 6px}
+  .close{position:sticky;top:0;float:right;margin:10px 10px 0 0;width:40px;height:40px;border-radius:50%;border:none;background:var(--sheet);cursor:pointer;font-size:22px;line-height:1;z-index:2;box-shadow:0 0 0 1px var(--line)}
+
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.works{scroll-behavior:auto}.go svg,.work .ph img{transition:none}}
+  @media (max-width:1300px){.frame{display:none}}
+
+  /* 태블릿·휴대폰: 일반 스크롤 */
+  @media (max-width:960px){
+    :root{--top:122px}
+    header{height:85px}
+    .nav{flex-direction:column;align-items:flex-start;justify-content:center;gap:4px}
+    .nav ul{gap:22px;overflow-x:auto;width:100%;font-size:14px}
+    .screen{min-height:0;padding-block:72px}
+    .hero{padding-block:16px 56px}
+    .hero-grid,.about,.visit{grid-template-columns:1fr;gap:32px}
+    .hero-photo{height:auto;min-height:0;aspect-ratio:4/3;order:-1}
+    .hero h1{padding-top:0;margin-block:24px 20px}
+    .about-photo{height:auto;min-height:0;aspect-ratio:4/3}
+    .work .ph{height:auto;min-height:0;width:72vw;max-width:340px}
+    .steps{grid-template-columns:1fr;border-top:none;border-left:1px solid var(--ink);margin-left:4px}
+    .steps li{padding:0 0 28px 28px}
+    .steps li::after{top:6px;left:-5px}
+    .foot-grid{grid-template-columns:1fr 1fr;min-height:0}
+    .foot-brand{grid-column:1/-1;padding-right:0 !important;gap:32px}
+    .foot-grid > :nth-child(2){border-left:none;padding-left:0}
+    .foot-grid > *{padding:32px 20px}
+    .foot-grid > :nth-child(n+2){border-top:1px solid var(--line)}
+    .dlg{grid-template-columns:1fr}
+  }
+  @media (max-width:560px){
+    .wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+    .notice{font-size:11.5px}
+    .arrows{display:none}
+    .promise li{grid-template-columns:1fr;gap:2px}
+    .foot-grid{grid-template-columns:1fr}
+    .foot-grid > *{padding-left:0 !important;padding-right:0;border-left:none !important}
+    dialog{width:100%;height:100%;max-height:none;border-radius:0}
+    .dlg-body{padding:24px 18px}
+  }
+</style>
+</head>
+<body>
+<span class="frame l" aria-hidden="true"></span><span class="frame r" aria-hidden="true"></span>
+<div class="notice" role="note"><span><b>포트폴리오용 시안</b>입니다. 바름 인테리어는 실존하지 않는 가상의 업체이며, 시공 사례와 정보는 모두 예시입니다.</span></div>
+
+<header>
+  <nav class="wrap nav" aria-label="주요 메뉴">
+    <a class="logo" href="#top"><strong>바름</strong><span>아파트 리모델링</span></a>
+    <ul>
+      <li><a href="#works">시공 사례</a></li>
+      <li><a href="#process">진행 과정</a></li>
+      <li><a href="#about">회사 소개</a></li>
+      <li><a href="#visit">쇼룸</a></li>
+    </ul>
+  </nav>
+</header>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="arrow" viewBox="0 0 38 10"><path d="M0 5 H36 M31 1 L36 5 L31 9" fill="none" stroke="currentColor" stroke-width="1.2"/></symbol>
+    <symbol id="chev-r" viewBox="0 0 16 10"><path d="M0 5 H15 M11 1 L15 5 L11 9" fill="none" stroke="currentColor" stroke-width="1.2"/></symbol>
+    <symbol id="chev-l" viewBox="0 0 16 10"><path d="M16 5 H1 M5 1 L1 5 L5 9" fill="none" stroke="currentColor" stroke-width="1.2"/></symbol>
+  </defs>
+</svg>
+
+<main id="top">
+  <section class="screen hero" id="home" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="kind">아파트 리모델링 · Since 2016</p>
+        <div>
+          <h1 id="hero-title">살던 집을,<br>새로 지은 듯<br>고칩니다.</h1>
+          <p>서울 서북권 아파트만 고치는 리모델링 팀입니다. 철거부터 마감까지 직접 시공합니다.</p>
+          <div class="goes">
+            <a class="go" href="#works"><span>시공 사례</span><svg aria-hidden="true"><use href="#arrow"/></svg></a>
+            <a class="go" href="#process"><span>진행 과정</span><svg aria-hidden="true"><use href="#arrow"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="https://images.unsplash.com/photo-1765371512707-9e0e96fd9e5b?auto=format&fit=crop&w=1800&q=75" alt="나무 마감 벽과 큰 창이 있는 거실">
+        <button class="hero-cap" type="button" data-open="5"><span>은평 OO아파트 47평 · 전체 리모델링</span><b>이 집 자세히 보기</b></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen works-screen" id="works" aria-labelledby="works-title">
+    <div class="wrap">
+      <div class="works-head">
+        <div>
+          <h2 class="h2" id="works-title">시공 사례</h2>
+          <p class="sub">사진을 누르면 공사비, 평면도, 마감재를 볼 수 있습니다.</p>
+        </div>
+        <div class="works-tools">
+          <div class="filters" role="group" aria-label="평형으로 거르기">
+            <button type="button" aria-pressed="true" data-f="all">전체</button>
+            <button type="button" aria-pressed="false" data-f="20">20평대</button>
+            <button type="button" aria-pressed="false" data-f="30">30평대</button>
+            <button type="button" aria-pressed="false" data-f="40">40평대 이상</button>
+          </div>
+          <div class="arrows">
+            <button type="button" id="prev" aria-label="이전 사례"><svg aria-hidden="true"><use href="#chev-l"/></svg></button>
+            <button type="button" id="next" aria-label="다음 사례"><svg aria-hidden="true"><use href="#chev-r"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <div class="works" id="works-grid" tabindex="0" aria-label="시공 사례 목록, 좌우로 넘겨 보세요"></div>
+    </div>
+  </section>
+
+  <section class="screen process" id="process" aria-labelledby="process-title">
+    <div class="wrap">
+      <div>
+        <h2 class="h2" id="process-title">진행 과정</h2>
+        <p class="sub">처음 실측부터 입주까지, 30평대 전체 리모델링 기준입니다.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>현장 실측</h3><p>집을 직접 보고 치수를 잽니다. 배관과 창호 상태도 함께 확인합니다.</p><span class="take">1일</span></li>
+        <li><h3>디자인 · 견적</h3><p>평면도와 마감재 샘플을 보여드리고, 항목별 견적서를 드립니다.</p><span class="take">1–2주</span></li>
+        <li><h3>계약</h3><p>항목별 견적서와 공사 일정표를 함께 확정합니다.</p><span class="take">1일</span></li>
+        <li><h3>공사</h3><p>철거, 설비, 목공, 타일, 도배, 바닥 순서로 진행합니다. 관리사무소 신고와 이웃 동의도 저희가 받습니다.</p><span class="take">5–6주</span></li>
+        <li><h3>입주 · 점검</h3><p>입주 청소를 마치고 집 안을 함께 돌며 마감 상태를 확인합니다.</p><span class="take">1일</span></li>
+      </ol>
+      <p class="dim total">계약부터 입주까지 평균 6–8주</p>
+    </div>
+  </section>
+
+  <section class="screen" id="about" aria-labelledby="about-title">
+    <div class="wrap about">
+      <div class="about-photo"><img src="https://images.unsplash.com/photo-1667312939978-64cf31718a6e?auto=format&fit=crop&w=1100&q=75" alt="테이블 위에 놓인 조명과 책" loading="lazy"></div>
+      <div>
+        <h2 class="h2" id="about-title">한 달에 두 집만<br>고칩니다.</h2>
+        <p class="sub">2016년부터 마포·서대문·은평의 아파트를 고쳐 왔습니다. 현장 소장이 한 번에 한 집만 맡도록 공사 수를 늘리지 않습니다.</p>
+        <ul class="promise">
+          <li><b>확정 견적</b><span>계약한 금액에서 공사 중 추가 비용을 받지 않습니다.</span></li>
+          <li><b>단계별 지급</b><span>계약금 10%, 공정마다 중도금, 잔금은 입주 점검을 마친 뒤에 받습니다.</span></li>
+          <li><b>매일 현장 사진</b><span>공사가 끝나는 저녁마다 그날의 진행 사진을 보내드립니다.</span></li>
+          <li><b>하자 보수 2년</b><span>시공 하자는 2년간 무상으로 고치고, 하자이행보증증권을 발급해 드립니다.</span></li>
+        </ul>
+        <p class="ceo">대표 · 실내건축 경력 18년 <b>윤바름</b></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="visit" aria-labelledby="faq-title">
+    <div class="wrap visit">
+      <div>
+        <h2 class="h2" id="faq-title">자주 묻는 질문</h2>
+        <div class="faq">
+          <details><summary>살면서 공사할 수 있나요?</summary><p>욕실이나 주방만 고치는 부분 공사는 가능합니다. 전체 리모델링은 먼지와 소음 때문에 짐 보관과 임시 거처를 권해 드립니다.</p></details>
+          <details><summary>견적은 비용이 드나요?</summary><p>현장 실측과 견적서는 무료입니다. 계약하지 않으셔도 비용을 받지 않습니다.</p></details>
+          <details><summary>관리사무소 신고와 이웃 동의는 누가 하나요?</summary><p>저희가 합니다. 공사 전 관리사무소에 신고하고, 엘리베이터 보양과 같은 라인 세대 동의서도 받아 둡니다.</p></details>
+          <details><summary>공사 기간이 늘어나면요?</summary><p>저희 사정으로 늦어지면 계약서에 적힌 대로 지연된 날짜만큼 보상해 드립니다.</p></details>
+        </div>
+      </div>
+      <div>
+        <h2 class="h2" id="show-title">쇼룸</h2>
+        <dl class="info">
+          <dt>주소</dt><dd>서울시 마포구 성산로 00, 1층<span>망원역 1번 출구 도보 7분 · 예시 주소</span></dd>
+          <dt>시간</dt><dd>평일 10:00–18:00 · 토 10:00–15:00<span>현장 실측이 있는 날은 비어 있을 수 있어 방문 전 전화를 부탁드립니다.</span></dd>
+          <dt>전화</dt><dd class="tel">02-000-0000</dd>
+          <dt>지역</dt><dd>마포 · 서대문 · 은평 · 종로 · 용산 · 고양 덕양<span>현장 소장이 매일 들를 수 있는 거리만 시공합니다.</span></dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot" id="foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <p class="tagline"><span>아파트 리모델링</span><span>마포 · 서대문 · 은평</span><span>Since 2016</span></p>
+      <strong aria-label="바름 인테리어">BARUM</strong>
+    </div>
+    <nav class="foot-links" aria-label="하단 메뉴">
+      <a href="#works">시공 사례</a>
+      <a href="#process">진행 과정</a>
+      <a href="#about">회사 소개</a>
+      <a href="#visit">자주 묻는 질문 · 쇼룸</a>
+    </nav>
+    <dl class="foot-info">
+      <dt>전화</dt><dd class="tel">02-000-0000</dd>
+      <dt>쇼룸</dt><dd>서울시 마포구 성산로 00, 1층</dd>
+      <dt>시간</dt><dd>평일 10:00–18:00 · 토 10:00–15:00</dd>
+    </dl>
+  </div>
+  <div class="wrap foot-legal">
+    <p>바름 인테리어 · 대표 윤바름 · 실내건축공사업 등록 제0000호 · 사업자등록번호 000-00-00000 (모두 예시)</p>
+    <p>포트폴리오용 가상 시안 · 사진: Unsplash</p>
+  </div>
+</footer>
+
+<dialog id="dlg" aria-labelledby="dlg-title">
+  <button class="close" type="button" id="dlg-close" aria-label="닫기">×</button>
+  <div class="dlg">
+    <div class="dlg-photos">
+      <div class="dlg-main"><img id="dlg-img" src="" alt=""></div>
+      <div class="dlg-thumbs" id="dlg-thumbs" role="group" aria-label="사진 고르기"></div>
+    </div>
+    <div class="dlg-body">
+      <div>
+        <h3 id="dlg-title"></h3>
+        <p class="dim" id="dlg-dim" style="margin-top:12px"></p>
+      </div>
+      <p class="cost"><span>공사비</span><b id="dlg-cost"></b><small>부가세 포함 · 예시 금액</small></p>
+      <p class="story" id="dlg-story"></p>
+      <dl class="spec" id="dlg-spec"></dl>
+      <div class="plan"><div id="dlg-plan"></div><p>평면도는 이해를 돕기 위한 예시입니다.</p></div>
+      <figure class="say"><blockquote id="dlg-rev"></blockquote><figcaption><span id="dlg-who"></span><em>예시 후기</em></figcaption></figure>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const U = (id,w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=75`;
+  const works = [
+    {t:"마포 OO아파트", py:32, cost:"6,900만 원", review:["매일 저녁 사진이 와서 회사에서도 공사가 어디까지 됐는지 알 수 있었어요. 견적서 금액 그대로 끝났습니다.","32평 집주인"], m2:84, type:30, scope:"전체 리모델링", weeks:6,
+     photos:[["1605774337664-7a846e9cdf17","회색 소파와 나무 테이블이 놓인 거실"],["1519710164239-da123dc03ef4","흰 러그 위 원형 테이블과 의자"],["1612196808827-9ff25cb6137a","커튼이 드리운 창가"]],
+     story:"베란다를 확장하지 않고 거실 창 쪽 단차만 없앴습니다. 바닥은 밝은 오크 강마루로 통일했습니다.",
+     spec:[["범위","철거, 설비, 목공, 욕실 2곳, 주방, 도배, 바닥"],["바닥","오크 강마루"],["벽","실크 도배, 거실 아트월 도장"],["욕실","포세린 타일, 매립 수전"],["주방","세라믹 상판, 무광 도어"]]},
+    {t:"은평 OO아파트", py:24, cost:"1,450만 원", review:["상부장을 천장까지 올리니 수납이 두 배가 됐어요. 욕실 공사 기간도 약속한 날짜에 맞춰 끝났습니다.","24평 집주인"], m2:59, type:20, scope:"주방 · 욕실", weeks:3,
+     photos:[["1610527003928-47afd5f470c6","흰 상부장과 전자레인지가 있는 주방"],["1560448075-cbc16bb4af8e","대리석 상판 테이블"]],
+     story:"좁은 주방은 상부장을 천장까지 올려 수납을 늘렸고, 욕실은 건식으로 바꿨습니다.",
+     spec:[["범위","주방, 욕실 1곳"],["주방","천장까지 올린 상부장, 인조대리석 상판"],["욕실","건식 욕실, 600각 타일"]]},
+    {t:"서대문 OO아파트", py:43, cost:"1억 1,800만 원", review:["주방 벽을 트는 게 걱정이었는데 구조 검토 서류까지 다 챙겨 주셔서 안심했어요.","43평 집주인"], m2:114, type:40, scope:"전체 리모델링", weeks:8,
+     photos:[["1772475385350-d130ebe22bf5","흰 아일랜드 식탁과 의자가 있는 주방"],["1765371512612-86600e661f4d","대리석 세면대가 있는 욕실"],["1667312939978-64cf31718a6e","조명과 책이 놓인 테이블"]],
+     story:"주방 벽을 터서 아일랜드를 들였습니다. 방 하나는 서재로 바꾸고 붙박이 책장을 짰습니다.",
+     spec:[["범위","철거, 구조 변경, 욕실 2곳, 주방, 서재 가구"],["바닥","헤링본 원목마루"],["주방","아일랜드 식탁, 세라믹 상판"],["욕실","대리석 세면대, 포세린 타일"]]},
+    {t:"고양 OO아파트", py:34, cost:"980만 원", review:["욕실 두 곳을 2주 만에 끝냈고, 아랫집 누수 걱정도 방수 시공 사진으로 확인할 수 있었습니다.","34평 집주인"], m2:84, type:30, scope:"욕실 2곳", weeks:2,
+     photos:[["1765371512612-86600e661f4d","대리석 세면대가 있는 욕실"],["1572853566597-b83cde546912","흰 도자기 화병 두 개"]],
+     story:"20년 된 욕실 두 곳의 방수부터 다시 했습니다. 수납장은 벽 안으로 넣었습니다.",
+     spec:[["범위","욕실 2곳 (방수 포함)"],["욕실","포세린 타일, 매립 수납장, 매립 수전"],["기간","공사 2주, 사용 불가 기간 10일"]]},
+    {t:"마포 OO아파트", py:25, cost:"5,200만 원", review:["작은 집이라 수납이 고민이었는데 히든도어로 바꾸니 집이 훨씬 넓어 보여요.","25평 집주인"], m2:59, type:20, scope:"전체 리모델링", weeks:5,
+     photos:[["1664711942326-2c3351e215e6","소파와 테이블이 놓인 방"],["1625585598750-3535fe40efb3","사다리 선반과 화분이 있는 방 구석"]],
+     story:"신혼부부가 사는 집입니다. 작은 방 두 개를 침실과 드레스룸으로 나누고 문을 모두 히든도어로 바꿨습니다.",
+     spec:[["범위","철거, 목공, 욕실 1곳, 주방, 도배, 바닥"],["바닥","그레이 강마루"],["문","히든도어 전체 교체"],["주방","ㄱ자 주방, 무광 도어"]]},
+    {t:"은평 OO아파트", py:47, cost:"1억 3,500만 원", review:["창호를 바꾸고 첫 겨울에 난방비가 확 줄었어요. 거실 벤치는 아이들이 제일 좋아하는 자리입니다.","47평 집주인"], m2:125, type:40, scope:"전체 리모델링", weeks:9,
+     photos:[["1765371512707-9e0e96fd9e5b","나무 마감 벽과 큰 창이 있는 거실"],["1777987956542-1edd0c7488d9","큰 창과 나무 벤치가 있는 방"],["1612196808827-9ff25cb6137a","커튼이 드리운 창가"]],
+     story:"창호를 모두 교체하고 거실 창가에 붙박이 벤치를 짰습니다. 오래된 난방 배관도 새로 깔았습니다.",
+     spec:[["범위","철거, 창호, 난방 배관, 욕실 2곳, 주방, 가구"],["창호","시스템 창호 전체 교체"],["바닥","오크 원목마루"],["가구","거실 붙박이 벤치, 현관 수납장"]]}
+  ];
+
+  // 평면도
+  function plan(type){
+    const W=400,H=240, s='stroke="#1D1D1B" stroke-width="2.5" fill="none"', thin='stroke="#1D1D1B" stroke-width="1.2" fill="none"';
+    const t=(x,y,txt)=>`<text x="${x}" y="${y}" text-anchor="middle" font-size="12" fill="#6B6A66" font-family="Pretendard Variable, Pretendard, sans-serif">${txt}</text>`;
+    let r=`<rect x="10" y="10" width="${W-20}" height="${H-20}" ${s}/>`;
+    if(type===20){
+      r+=`<path d="M150 10 V140 M10 140 H150 M260 140 V230 M150 140 H390" ${thin}/>`;
+      r+=t(80,80,'안방')+t(270,80,'거실 · 주방')+t(80,190,'방')+t(205,190,'욕실')+t(325,190,'현관');
+    } else if(type===30){
+      r+=`<path d="M130 10 V130 M10 130 H390 M250 10 V130 M130 130 V230 M230 130 V230 M310 130 V230" ${thin}/>`;
+      r+=t(70,75,'안방')+t(190,75,'주방')+t(320,75,'거실')+t(70,185,'방')+t(180,185,'방')+t(270,185,'욕실')+t(350,185,'욕실');
+    } else {
+      r+=`<path d="M110 10 V125 M10 125 H390 M240 10 V125 M110 125 V230 M200 125 V230 M290 125 V230 M340 125 V230" ${thin}/>`;
+      r+=t(60,72,'안방')+t(175,72,'주방 · 식당')+t(315,72,'거실')+t(60,180,'방')+t(155,180,'방')+t(245,180,'서재')+t(315,180,'욕실')+t(365,180,'욕실');
+    }
+    return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${type}평대 평면도 예시">${r}</svg>`;
+  }
+
+  // 시공 사례 목록
+  const grid = document.getElementById('works-grid');
+  function render(f){
+    const list = works.map((w,i)=>({w,i})).filter(({w})=>f==='all'||String(w.type)===f);
+    grid.innerHTML = list.length ? list.map(({w,i})=>`
+      <button class="work" type="button" data-i="${i}">
+        <span class="ph"><img src="${U(w.photos[0][0],800)}" alt="${w.photos[0][1]}" loading="lazy"></span>
+        <h3>${w.t}</h3>
+        <span class="meta">${w.scope} · ${w.weeks}주 · 약 ${w.cost}</span>
+        <span class="dim">${w.py}평 · 전용 ${w.m2}㎡</span>
+      </button>`).join('') : '<p class="empty">해당 평형의 사례가 아직 없습니다.</p>';
+    grid.scrollLeft = 0;
+    grid.querySelectorAll('.work').forEach(b=>b.addEventListener('click',()=>openWork(+b.dataset.i)));
+  }
+  document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    render(b.dataset.f);
+  }));
+  render('all');
+  const step = () => (grid.querySelector('.work')?.offsetWidth || 300) + 24;
+  document.getElementById('prev').onclick = () => grid.scrollBy({left:-step()});
+  document.getElementById('next').onclick = () => grid.scrollBy({left:step()});
+
+  // 사례 자세히 보기
+  const dlg = document.getElementById('dlg');
+  function showPhoto(w,k){
+    const img = document.getElementById('dlg-img'); img.src = U(w.photos[k][0],1400); img.alt = w.photos[k][1];
+    document.querySelectorAll('#dlg-thumbs button').forEach((b,j)=>b.setAttribute('aria-pressed',j===k));
+  }
+  function openWork(i){
+    const w = works[i];
+    document.getElementById('dlg-title').textContent = `${w.t} ${w.py}평 · ${w.scope}`;
+    document.getElementById('dlg-dim').textContent = `${w.py}평 · 전용 ${w.m2}㎡ · 공사 ${w.weeks}주`;
+    document.getElementById('dlg-cost').textContent = w.cost;
+    document.getElementById('dlg-story').textContent = w.story;
+    document.getElementById('dlg-spec').innerHTML = w.spec.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('');
+    document.getElementById('dlg-plan').innerHTML = plan(w.type);
+    document.getElementById('dlg-rev').textContent = w.review[0];
+    document.getElementById('dlg-who').textContent = w.review[1];
+    const th = document.getElementById('dlg-thumbs');
+    th.innerHTML = w.photos.map((p,k)=>`<button type="button" aria-label="사진 ${k+1}"><img src="${U(p[0],400)}" alt=""></button>`).join('');
+    th.querySelectorAll('button').forEach((b,k)=>b.addEventListener('click',()=>showPhoto(w,k)));
+    showPhoto(w,0);
+    dlg.showModal(); dlg.scrollTop = 0;
+  }
+  document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>openWork(+b.dataset.open)));
+  document.getElementById('dlg-close').addEventListener('click',()=>dlg.close());
+  dlg.addEventListener('click',e=>{ if(e.target===dlg) dlg.close(); });
+
+  // 지금 보고 있는 섹션 표시
+  const links = [...document.querySelectorAll('.nav ul a')];
+  const io = new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting) links.forEach(a=>a.setAttribute('aria-current', a.getAttribute('href')==='#'+e.target.id));
+  }),{rootMargin:'-45% 0px -45% 0px'});
+  document.querySelectorAll('main section[id], #foot').forEach(s=>io.observe(s));
+
+  // 데스크톱: 휠 한 번 = 한 화면 (마지막은 하단까지)
+  const stops = [...document.querySelectorAll('main section'), document.getElementById('foot')];
+  const desk = matchMedia('(min-width:961px)');
+  const calm = matchMedia('(prefers-reduced-motion: reduce)');
+  const maxY = () => document.documentElement.scrollHeight - innerHeight;
+  const topOf = el => Math.min(el.offsetTop - document.querySelector('main').offsetTop, maxY());
+  const current = () => stops.reduce((best,s,i)=>Math.abs(topOf(s)-scrollY) < Math.abs(topOf(stops[best])-scrollY) ? i : best, 0);
+  function go(i){
+    i = Math.max(0, Math.min(stops.length-1, i));
+    window.scrollTo({top: topOf(stops[i]), behavior: calm.matches ? 'auto' : 'smooth'});
+  }
+  let lock=false, lockStart=0, lastWheel=0;
+  window.addEventListener('wheel', e=>{
+    if(!desk.matches || e.ctrlKey || dlg.open) return;
+    if(e.target.closest('.works') && Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    const now = Date.now(), gap = now - lastWheel; lastWheel = now;
+    if(lock && now - lockStart > 800 && gap > 150) lock = false;
+    if(lock || Math.abs(e.deltaY) < 4) return;
+    lock = true; lockStart = now;
+    go(current() + (e.deltaY > 0 ? 1 : -1));
+  }, {passive:false});
+  window.addEventListener('keydown', e=>{
+    if(!desk.matches || dlg.open) return;
+    const next = ['ArrowDown','PageDown'].includes(e.key) || (e.key===' ' && !/BUTTON|SUMMARY|A/.test(document.activeElement.tagName));
+    const prev = ['ArrowUp','PageUp'].includes(e.key);
+    if(!next && !prev) return;
+    e.preventDefault(); go(current() + (next ? 1 : -1));
+  });
+  document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+    const t = a.getAttribute('href')==='#top' ? stops[0] : document.querySelector(a.getAttribute('href'));
+    if(!t || !desk.matches || !stops.includes(t)) return;
+    e.preventDefault(); go(stops.indexOf(t));
+  }));
+</script>
+</body>
+</html>
